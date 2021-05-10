@@ -1,3 +1,5 @@
+from  django.contrib import messages
+from django.core.mail import send_mail
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView,CreateView,View,FormView,DetailView
 from django.urls import reverse_lazy, reverse
@@ -282,10 +284,27 @@ class Searchview(TemplateView):
 
 class Aboutview(EcomMixin,TemplateView):
     template_name = "about.html"
-class Contactview(EcomMixin,TemplateView):
-    template_name = "contact.html"
-class Contactview(EcomMixin,TemplateView):
-    template_name = "contact.html"
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        phone = request.POST.get('phone')
+        contact = Contactpage(name =  name, email = email, message = message)
+        contact.save()
+        send_mail(
+            f"Message from {name}",
+            "message",
+            "saishashidhar66@gmail.com",
+            ['saishashidhar66@gmail.com'],
+            fail_silently=False )
+        send_mail(
+            f"Hello  {name}",
+            f"Thank You For Reaching Us about {message}\n Please Wait until Our Executive contact You \n Thank You for your Patiance   -Team Ecom",
+            "saishashidhar66@gmail.com",
+            [email],
+            fail_silently=False )
+    return render(request, 'contact.html')
 class Profileview(TemplateView):
     template_name="profile.html"
     def dispatch(self, request, *args, **kwargs):

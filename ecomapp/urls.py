@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path
+from . import views
 from .views import *
 app_name = "ecomapp"
 urlpatterns = [
     path("",Homeview.as_view(),name="home"),
     path("about/",Aboutview.as_view(),name="about"),
-    path("contact/",Contactview.as_view(),name="contact"),
+    path("contact/",views.contact,name="contact"),
     path("allproducts/",Allproductview.as_view(),name="allproducts"),
     path("product/<slug:slug>/",Productdetailview.as_view(),name="productdetail"),
     path("add-to-cart-<int:pro_id>",Addtocartview.as_view(),name="addtocart"),
