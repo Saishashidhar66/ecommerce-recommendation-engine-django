@@ -41,7 +41,7 @@ class Allproductview(EcomMixin,TemplateView):
         context = super().get_context_data(**kwargs)
         context['allcategories']=Category.objects.all()
         return context
-class Productdetailview(EcomMixin,TemplateView):
+class Productdetailview(TemplateView):
     template_name = "productdetail.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -119,6 +119,17 @@ class Managecartview(EcomMixin,TemplateView):
             pass
 
         return redirect("ecomapp:mycart")
+class Searchview(EcomMixin,TemplateView):
+    template_name = "search.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        kw = self.request.GET.get("keyword")
+        results = Product.objects.filter(
+            Q(title__icontains=kw) | Q(description__icontains=kw) | Q(return_policy__icontains=kw))
+        print(results)
+        context["results"] = results
+        return context
 class MycartView( EcomMixin,TemplateView):
     template_name = "mycart.html"
 
@@ -270,17 +281,7 @@ class Passwordresetview(FormView):
 
 
 
-class Searchview(TemplateView):
-    template_name = "search.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        kw = self.request.GET.get("keyword")
-        results = Product.objects.filter(
-            Q(title__icontains=kw) | Q(description__icontains=kw) | Q(return_policy__icontains=kw))
-        print(results)
-        context["results"] = results
-        return context
 
 class Aboutview(EcomMixin,TemplateView):
     template_name = "about.html"
@@ -335,6 +336,18 @@ class Orderdetailview(DetailView):
         else:
             return redirect("/login/?next=/profile/")
         return super().dispatch(request, *args, **kwargs)
+class recommendation(EcomMixin,TemplateView):
+    template_name = "recommendation.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product_list']=Product.objects.all().order_by('?')
+        all_products = Product.objects.all().order_by('?')
+        paginator = Paginator(all_products, 8)
+        page_number = self.request.GET.get('page')
+        #print(page_number)
+        product_list = paginator.get_page(page_number)
+        context['product_list'] = product_list
+        return context
 
 
 

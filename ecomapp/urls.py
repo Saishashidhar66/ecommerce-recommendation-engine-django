@@ -23,6 +23,7 @@ urlpatterns = [
      path("forgotpassword/", forgotpasswordview.as_view(), name="forgotpassword"),
      path("password-reset/<email>/<token>/",
          Passwordresetview.as_view(), name="passwordreset"),
+    path("product-recommendation",recommendation.as_view(),name="recommendation"),
 
 
     ]

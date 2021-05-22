@@ -28,8 +28,6 @@ class  Product(models.Model):
     return_policy = models.CharField(max_length=225,null=True,blank=True)
     view_count = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.title
 
 class Cart(models.Model):
     customer = models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True,blank=True)
@@ -112,3 +110,23 @@ class Contactpage(models.Model):
     
     def __str__(self):
         return self.name
+class SearchTerms(models.Model):
+
+    customer = models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True,blank=True)
+    search_terms = models.CharField(max_length=255, blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now_add=True)
+
+
+
+    class Meta:
+        verbose_name_plural = "Search Terms"
+
+    def __str__(self):
+        return self.search_terms
+class Review(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    content = models.TextField(blank=True, null=True)
+    stars = models.IntegerField()
+
+    date_added = models.DateTimeField(auto_now_add=True)
