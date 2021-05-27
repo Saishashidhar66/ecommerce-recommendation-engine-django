@@ -215,7 +215,7 @@ class Loginview(FormView):
         if usr is not None and Customer.objects.filter(user=usr).exists():
             login(self.request, usr)
         else:
-            return render(self.request, self.template_name, {"form": self.form_class, "error": "Invalid credentials"})
+            return render(self.request, self.template_name, {"form": self.form_class, "error": "cannot find account on the registered username,please register first"})
 
         return super().form_valid(form)
 

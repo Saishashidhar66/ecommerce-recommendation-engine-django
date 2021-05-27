@@ -28,6 +28,9 @@ class  Product(models.Model):
     return_policy = models.CharField(max_length=225,null=True,blank=True)
     view_count = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.title
+
 
 class Cart(models.Model):
     customer = models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True,blank=True)
