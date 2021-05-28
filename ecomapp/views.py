@@ -295,13 +295,13 @@ def contact(request):
         contact.save()
         send_mail(
             f"Message from {name}",
-            "message",
+            "{message}",
             "saishashidhar66@gmail.com",
             ['saishashidhar66@gmail.com'],
             fail_silently=False )
         send_mail(
             f"Hello  {name}",
-            f"Thank You For Reaching Us about {message}\n Please Wait until Our Executive contact You \n Thank You for your Patiance   -Team Ecom",
+            f"Thank You For Reaching Us about '{message}'\n Please Wait until Our Executive contact You \n Thank You for your Patience   -Team Ecom",
             "saishashidhar66@gmail.com",
             [email],
             fail_silently=False )

@@ -14,7 +14,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'ecomapp:home' %}">Our Ecommerce</a>
+        <a class="navbar-brand" href="{% url 'ecomapp:home' %}">TEETRAX</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,7 +35,7 @@
                 {% endif %}
                 </li>
                  <li class="nav-item ">
-                <a  {% if '/contact/' == request.path %}class="nav-link active"{% else %}class="nav-link"{% endif %}href="/contact"  >Contact </a>
+                <a  {% if '/contact/' == request.path %}class="nav-link active"{% else %}class="nav-link"{% endif %}href="/contact"  >Contact service</a>
             </li>
              <li class="nav-item ">
                 <a  {% if '/product-recommendation/' == request.path %}class="nav-link active"{% else %}class="nav-link"{% endif %}href="/product-recommendation"  >Recommendation </a>
